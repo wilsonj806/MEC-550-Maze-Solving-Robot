@@ -1,6 +1,6 @@
 // NOTE: Ripped from the internet via 
 //http://forum.arduino.cc/index.php?PHPSESSID=v1ifb122emt2qh3cp6c0u1gq73&topic=216765.msg1585162#msg1585162
-
+// ALSO NOTE: COLOR SENSOR MUST NOT BE CONNECTED TO VCC OR IT WILL NOT WORK
 
 int S0 = 8;//pinB
 int S1 = 9;//pinA
