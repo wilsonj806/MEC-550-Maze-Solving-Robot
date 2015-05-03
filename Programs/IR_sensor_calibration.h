@@ -2,16 +2,13 @@
  ******************************
    MEC 550 Maze Solving Robot
      IR Sensor Calibration
-     May 2, 2015 Version 1
+     Version 1 May 2, 2015
  ******************************
- 
  *********************
     Change History
  *********************
- 
- 5/2/15
+ Version 1 - 5/2/15
  - Created base version
- 
  **********************
    End Change History
  **********************
