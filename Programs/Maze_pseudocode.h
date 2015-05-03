@@ -31,9 +31,8 @@ int duration, frontdistance, color, navcheck;
 
 // start the navigation matrix
 // start i as the number of rows and j as the number of columns
-int navmatrix[20][20];
+char navmatrix[8][8];
 
-// might not work, check
 
 
 /* mark simply as
@@ -116,59 +115,56 @@ break;
  a 20 by 20 matrix is done via array(289) = whatever's there)
   This function calculates what the value of the index is given the i-th row and j-th column
  */
-int arraypos(char i, char j){
-int pos = 20 * (i-1)+j;
-return pos;
-}
+ 
 /*
  This function writes the state of a thing based on the state, bearing, and whether or not it registers a dead end
  NOTE: CANNOT HAVE navcheck
 */
-int matrixwrite(int state){
+char matrixwrite(char state){
 char i,j;
 switch(state){
 case 3:
 switch(bearing){
 case 0:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;;
 return navcheck;
 }
 else if (deadend ==1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 1:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 2:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 3:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
@@ -178,44 +174,44 @@ case 4:
 switch(bearing){
 case 0:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 1:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 2:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 3:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
@@ -224,44 +220,44 @@ case 5:
 switch(bearing){
 case 0:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 1:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 2:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
 
 case 3:
 if (deadend == 0){
-int navcheck = 1;
+char navcheck = 1;
 return navcheck;
 }
 else if (deadend == 1){
-int navcheck = 0;
+char navcheck = 0;
 return navcheck;
 }
 break;
