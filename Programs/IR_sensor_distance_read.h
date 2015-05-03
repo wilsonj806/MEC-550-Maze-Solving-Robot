@@ -8,7 +8,7 @@
 ************************
 Change History
 ************************
-5/2/15- Version 1
+Version 1 - 5/2/15
 -Created base version
 ************************
 End Change History
