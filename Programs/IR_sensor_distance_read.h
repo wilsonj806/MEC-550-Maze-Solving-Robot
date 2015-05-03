@@ -1,8 +1,8 @@
 /* 
 *********************************
-MEC 550 Maze Solving Robot
-IR sensor distance read
-May 02, 2015 Version 1
+   MEC 550 Maze Solving Robot
+    IR sensor distance read
+     Version 1 May 2, 2015
 *********************************
 
 ************************
