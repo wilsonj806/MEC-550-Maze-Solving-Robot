@@ -2,7 +2,7 @@
  ****************************
   MEC 550 Maze Solving Robot
    Maze Solving Pseudocode
-   May 2, 2015 Version 1
+   Version 1 May 2, 2015
  ****************************
 
 ********************
