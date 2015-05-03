@@ -8,7 +8,7 @@
 ************************
 Change History
 ************************
-5/2/2015- Version 1
+5/2/15- Version 1
 -Created base version
 ************************
 End Change History
@@ -17,6 +17,7 @@ End Change History
 This program includes the calibration curve for the IR sensor
 
 */
+
 
 #define irsensor 0
 
