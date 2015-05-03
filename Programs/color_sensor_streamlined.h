@@ -2,7 +2,7 @@
  ********************************
    MEC 550 Maze Solving Robot
      Color Reading Program
-    Version 1 April 22, 2015
+    Version 2 May 2, 2015
  *******************************
  
  ********************************
@@ -11,21 +11,23 @@
 Version 1 4/22/15
 - Created base version of the program
 - Need to annotate the program with comments more
+Version 2 5/2/15
+- Optimized dynamic memory use (granted it was 1% before, but still)
  *********************************
         End Change History
  *********************************
 */
 
-int S0 = 8;
-int S1 = 9;
-int S2 = 11;
-int S3 = 12;
-int outputPin = 10;
-int LED = 13;
+#define S0 8
+#define S1 9
+#define S2 11
+#define S3 12
+char outputPin = 10;
+#define LED 13
 
 void setup(){
   pinsetup();
-  delay(100);
+
 }
 
 void loop() {
@@ -33,11 +35,11 @@ detectColor(outputPin);
 delay(1000);
 }
 
-int detectColor(int outputPin){
-  float red = colorRead(outputPin, 1, 1); // detect % red
-  float green = colorRead(outputPin, 2, 1); // detect % green
+int detectColor(char outputPin){
+  int red = colorRead(outputPin, 1, 1); // detect % red
+  int green = colorRead(outputPin, 2, 1); // detect % green
 }
-float colorRead(int outputPin, int color, boolean LEDstate){ // declare color read function as a float
+int colorRead(char outputPin, int color, boolean LEDstate){ // declare color read function as a float
   outputMode(1);
   if(color == 1){
     digitalWrite(S3, LOW);
@@ -67,7 +69,7 @@ float colorRead(int outputPin, int color, boolean LEDstate){ // declare color re
 
 
 // Set up the output pin frequency sensitivity
-void outputMode(int mode){
+void outputMode(char mode){
   if(mode == 0){
     digitalWrite(LED, LOW);
     digitalWrite(S0, LOW);
