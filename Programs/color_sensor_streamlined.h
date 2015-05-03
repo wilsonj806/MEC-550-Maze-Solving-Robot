@@ -11,8 +11,10 @@
 Version 1 4/22/15
 - Created base version of the program
 - Need to annotate the program with comments more
+
 Version 2 5/2/15
 - Optimized dynamic memory use (granted it was 1% before, but still)
+ * Done by changing variables S0, S1, S2, S3 from "int" variables to "#define" variables
  *********************************
         End Change History
  *********************************
