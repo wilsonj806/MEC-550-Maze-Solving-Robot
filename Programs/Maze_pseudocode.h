@@ -11,29 +11,30 @@
 5/2/2015 - Version 1
 - Created base version
 - Need to add a provision for the robot figuring where it is in the maze
+- Need to add a provision for updating the robot's current position
 ********************
 End Change History
 ********************
 */
 
-
-#include <motordriver.h>
+#include <MotorDriver.h>
+#include<Servo.h>
 
 #define irsensor1 0
 #define irsensor2 1
 #define echopin 1
 #define trigpin 2
 #define servopin 6
-
+Servo claw;
 float rightdistance, leftdistance, raw1, raw2;
-int duration, frontdistance, color
+int duration, frontdistance, color, navcheck;
 
 // start the navigation matrix
 // start i as the number of rows and j as the number of columns
-char navmatrix = array[byte i=20][byte j =20];
+int navmatrix[20][20];
 
 // might not work, check
-navmatrix = memset(navmatrix,0,sizeof(navmatrix));
+
 
 /* mark simply as
  state 0 = color read/ bearing reset
@@ -51,19 +52,16 @@ state 9 = terminal state
 /* dead end: value of either 0 or one
 turn counter: value range of 0-4
 bearing: value range of 0-4
-pos: value range of 0- 400
+pos: value range of 0-400
 */
-char state, deadend, turncounter, bearing, pos
+char state, deadend, turncounter, bearing, pos,i,j;
 
 void setup(){
 pinMode(echopin,INPUT);
 pinMode(trigpin, OUTPUT);
 //TSC3200();
-myservo.attach(servopin);
+claw.attach(servopin);
 // start declaring where the robot starts
-
-
-
 }
 
 void loop(){
@@ -75,6 +73,7 @@ case 1:
   matrixwrite(state = left turn)
 
 */
+navmatrix[i][j]=matrixwrite(state);
 break;
 
 case 2:
@@ -117,50 +116,60 @@ break;
  a 20 by 20 matrix is done via array(289) = whatever's there)
   This function calculates what the value of the index is given the i-th row and j-th column
  */
-int arraypos(i,j){
-pos = 20 * (i-1)+j;
-return pos
+int arraypos(char i, char j){
+int pos = 20 * (i-1)+j;
+return pos;
 }
 /*
  This function writes the state of a thing based on the state, bearing, and whether or not it registers a dead end
+ NOTE: CANNOT HAVE navcheck
 */
-int matrixwrite(state){
+int matrixwrite(int state){
+char i,j;
 switch(state){
 case 3:
 switch(bearing){
 case 0:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend ==1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 1:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 2:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 3:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
@@ -168,77 +177,94 @@ break;
 case 4:
 switch(bearing){
 case 0:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 1:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 2:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 3:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 }
 case 5:
 switch(bearing){
 case 0:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 1:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 2:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
 
 case 3:
-if deadend ==0{
-arraypos(i+ whatever, j whatever) = 1;
+if (deadend == 0){
+int navcheck = 1;
+return navcheck;
 }
-else if deadend == 1{
-arraypos(i+whatever, j whatever) = 0;
+else if (deadend == 1){
+int navcheck = 0;
+return navcheck;
 }
 break;
+}
 }
 }
