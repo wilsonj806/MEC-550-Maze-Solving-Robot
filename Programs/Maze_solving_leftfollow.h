@@ -2,7 +2,7 @@
  ****************************
   MEC 550 Maze Solving Robot
   Maze Solving Left Wall Nav
-   Version 1 May 4, 2015
+   Version 2 May 4, 2015
  ****************************
 
 ********************
@@ -10,7 +10,10 @@
 ********************
 Version 1 - 5/4/15
 - Created base version
-
+Version 2 - 5/4/15
+- Still tuning large portions
+- Robot does not navigate corners as well as straightaways well
+- Retuned kpwall so that kpwall = .5
 ********************
 End Change History
 ********************
@@ -82,7 +85,7 @@ AFMS.begin();
 state = 11;
 //ballstate=1;
 sidediffnom = 0;
-kpwall=1;
+kpwall=.5;
 // start declaring where the robot starts
 Serial.begin(9600);
 }
