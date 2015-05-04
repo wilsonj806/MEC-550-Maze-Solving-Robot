@@ -10,8 +10,7 @@
 ********************
 Version 1 - 5/4/15
 - Created base version
-- Need to add a provision for ball grabbing
-- Need to test the color subroutine
+
 ********************
 End Change History
 ********************
@@ -41,9 +40,9 @@ char outputPin = 12;
 #define LED 13
 // Math variables
 int raw1,raw2, front, right, left,sidediff,wallnaverr, state, kpwall, leftspeed, rightspeed, sidediffnom;
-int turnrighttime = 237;
-int turnlefttime = 250;
-long oneeightytime = 480;
+long turnrighttime = 450;
+long turnlefttime = 450;
+long oneeightytime = 960;
 word duration;
 float rad,graan;
 
@@ -83,6 +82,7 @@ AFMS.begin();
 state = 11;
 //ballstate=1;
 sidediffnom = 0;
+kpwall=1;
 // start declaring where the robot starts
 Serial.begin(9600);
 }
@@ -113,26 +113,26 @@ case 2:
 // Figure out options (transitional state)
 
 if (turnstatus==true){
-motorRight-> setSpeed(40);
-motorLeft-> setSpeed(40);
+motorRight-> setSpeed(30);
+motorLeft-> setSpeed(30);
 motorLeft-> run(FORWARD);
 motorRight-> run(FORWARD);
-delay(200);
+delay(400);
 motorLeft->setSpeed(0);
 motorRight->setSpeed(0);
 state = 6;
 turnstatus = false;
 }
-else if (left>50){
+if (left>120){
 state = 5;
 }
-else if (right>50){
+else if (right>120){
 state = 4;
 }
-else if (((left>50)&&(right>50))||((left>50)&&(front>50))||((right>50)&&(front>50))){
+else if (((left>120)&&(right>120))||((left>120)&&(front>120))||((right>120)&&(front>120))){
 state = 3;
 }
-else if (front<36){
+else if (front<43){
 state = 8;
 }
 else{
@@ -142,13 +142,13 @@ break;
 
 case 3:
 // T- junction
-if  ((left>50)&&(right>50)){
+if  ((left>120)&&(right>120)){
 state = 5;
 }
-else if ((left>50)&&(front>50)){
+else if ((left>120)&&(front>120)){
 state = 5;
 }
-else if ((right>50)&&(front>50)){
+else if ((right>120)&&(front>120)){
 state = 6;
 }
 break;
@@ -156,8 +156,8 @@ break;
 
 case 4:
 // Right turn
-motorRight-> setSpeed(40);
-motorLeft-> setSpeed(40);
+motorRight-> setSpeed(30);
+motorLeft-> setSpeed(30);
 motorLeft-> run(FORWARD);
 motorRight-> run(BACKWARD);
 delay(turnrighttime);
@@ -172,8 +172,8 @@ break;
 
 case 5:
 // Left turn
-motorRight-> setSpeed(40);
-motorLeft-> setSpeed(40);
+motorRight-> setSpeed(30);
+motorLeft-> setSpeed(30);
 motorRight-> run(FORWARD);
 motorLeft-> run(BACKWARD);
 delay(turnlefttime);
@@ -204,19 +204,25 @@ digitalWrite(trigPin, LOW);
  raw2 = analogRead(infrared2);
  right = distanceReadr(raw1);
  left = distanceReadl(raw2);
-if ((right>50) || (left>50) || (front<36)){
+if ((right>120) || (left>120) || (front<50)){
 motorRight-> run(RELEASE);
 motorLeft-> run(RELEASE);
-state = 11;
+state =11;
 break;
 }
 // do a motor running thing
 sidediff = left - right;
 wallnaverr= sidediff-sidediffnom;
 
+if (wallnaverr>10){
+  wallnaverr=6;
+}
+else if(wallnaverr<-9){
+  wallnaverr=-5;
+}
 // this is a P controller
-leftspeed=kpwall*wallnaverr+50;
-rightspeed=50+kpwall*wallnaverr;
+leftspeed=kpwall*wallnaverr+20;
+rightspeed=20+kpwall*wallnaverr;
 
 motorRight-> setSpeed(rightspeed);
 motorLeft-> setSpeed(leftspeed);
@@ -307,9 +313,10 @@ ballstate = 10;
 break;
 }
 ballgrab = true;
-state = 7;
+
+*/state = 7;
 break;
-*/
+
 case 10:
 // Terminal state
 motorRight-> setSpeed(0);
