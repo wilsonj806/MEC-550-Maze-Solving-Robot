@@ -1,4 +1,4 @@
-/*
+ /*
  ****************************
   MEC 550 Maze Solving Robot
   Maze Solving Left Wall Nav
@@ -24,7 +24,6 @@ Programs that this program borrows:
 */
 // Includes prequisite libraries
 #include <Adafruit_MotorShield.h>
-#include<Servo.h>
 #include<Wire.h>
 
 #define infrared1 0
@@ -41,12 +40,11 @@ Programs that this program borrows:
 char outputPin = 12;
 #define LED 13
 // Math variables
-int raw1,raw2, front, right, left;
+int raw1,raw2, front, right, left,sidediff,wallnaverr, state, kpwall, leftspeed, rightspeed, sidediffnom;
 int turnrighttime = 237;
 int turnlefttime = 250;
 long oneeightytime = 480;
 word duration;
-char sidediff,sidediffnom,wallnaverr,kpwall, leftspeed, rightspeed, state, ballstate;
 float rad,graan;
 
 // Variable for confirming that the robot ran the ball grab routine
@@ -55,7 +53,7 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 
 Adafruit_DCMotor *motorRight= AFMS.getMotor(1);
 Adafruit_DCMotor *motorLeft = AFMS.getMotor(2);
-Servo claw;
+
 
 /* States are:
  state 0 = color read/ bearing reset
@@ -80,11 +78,13 @@ void setup(){
 pinMode(echoPin,INPUT);
 pinMode(trigPin, OUTPUT);
 pinsetup();
-claw.attach(servoPin);
+
 AFMS.begin();
 state = 11;
-ballstate=1;
+//ballstate=1;
+sidediffnom = 0;
 // start declaring where the robot starts
+Serial.begin(9600);
 }
 
 void loop(){
@@ -111,6 +111,7 @@ break;
 
 case 2:
 // Figure out options (transitional state)
+
 if (turnstatus==true){
 motorRight-> setSpeed(40);
 motorLeft-> setSpeed(40);
@@ -131,8 +132,11 @@ state = 4;
 else if (((left>50)&&(right>50))||((left>50)&&(front>50))||((right>50)&&(front>50))){
 state = 3;
 }
-else if (front<20){
+else if (front<36){
 state = 8;
+}
+else{
+  state = 6;
 }
 break;
 
@@ -200,7 +204,9 @@ digitalWrite(trigPin, LOW);
  raw2 = analogRead(infrared2);
  right = distanceReadr(raw1);
  left = distanceReadl(raw2);
-if ((right>50) || (left>50) || (front<20)){
+if ((right>50) || (left>50) || (front<36)){
+motorRight-> run(RELEASE);
+motorLeft-> run(RELEASE);
 state = 11;
 break;
 }
@@ -210,7 +216,7 @@ wallnaverr= sidediff-sidediffnom;
 
 // this is a P controller
 leftspeed=kpwall*wallnaverr+50;
-rightspeed=50-kpwall*wallnaverr;
+rightspeed=50+kpwall*wallnaverr;
 
 motorRight-> setSpeed(rightspeed);
 motorLeft-> setSpeed(leftspeed);
@@ -235,7 +241,7 @@ state = 11;
 break;
 
 
-case 8:
+/*case 8:
 // Dead end
 if (rad<40){
 state = 9;
@@ -251,17 +257,17 @@ state=7;
 
 // check floor tile color
 break;
-
+*/
 case 9:
 // Ball grabbing
-switch(ballstate){
+/*switch(ballstate){
 case 1:
-myservo.write(180);
+ write(180);
 delay(30);
 ballstate = 2;
 break;
 case 2:
-myservo.write(0);
+ write(0);
 delay(30);
 ballstate=3;
 break;
@@ -278,12 +284,12 @@ motorRight->setSpeed(0);
 ballstate = 4;
 break;
 case 4:
-myservo.write(180);
+ write(180);
 delay(30);
 ballstate = 5;
 break;
 case 5:
-myservo.write(0);
+ write(0);
 delay(30);
 ballstate=6;
 break;
@@ -303,7 +309,7 @@ break;
 ballgrab = true;
 state = 7;
 break;
-
+*/
 case 10:
 // Terminal state
 motorRight-> setSpeed(0);
@@ -313,7 +319,7 @@ break;
 
 case 11:
 // Color read
-rad = detectColor(outputPin);
+//rad = detectColor(outputPin);
 graan = detectColor(outputPin);
 state = 1;
 break;
