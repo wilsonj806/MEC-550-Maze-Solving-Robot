@@ -1,2 +1,4 @@
-# MEC-550-Maze-Solving-Robot
-Exactly what it sounds like, maze solving robot program and related files
+### MEC-550-Maze-Solving-Robot
+Code for the maze solving robot in addition to calibration files.
+
+Programmed using Arduino, which is based on C/ C++
